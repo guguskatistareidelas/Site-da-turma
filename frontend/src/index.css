@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global Reset & Base ─────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0f1117;
+  color: #e8e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Mesh gradient background ───────────────────────────── */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, rgba(236, 72, 153, 0.10) 0%, transparent 45%),
+    radial-gradient(ellipse at 60% 80%, rgba(16, 185, 129, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 70%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
+    #0f1117;
+  pointer-events: none;
+}
+
+/* ── Glassmorphism card ──────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+}
+
+/* ── Subject color accents ───────────────────────────────── */
+:root {
+  --math-start: #bae6fd;
+  --math-end: #60a5fa;
+  --math-glow: rgba(96, 165, 250, 0.25);
+
+  --port-start: #fbcfe8;
+  --port-end: #f472b6;
+  --port-glow: rgba(244, 114, 182, 0.25);
+
+  --geo-start: #bbf7d0;
+  --geo-end: #34d399;
+  --geo-glow: rgba(52, 211, 153, 0.25);
+
+  --hist-start: #fde68a;
+  --hist-end: #fbbf24;
+  --hist-glow: rgba(251, 191, 36, 0.25);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+/* ── Tab active underline animation ─────────────────────── */
+.tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ── Shimmer skeleton ────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.05) 0%,
+    rgba(255,255,255,0.10) 50%,
+    rgba(255,255,255,0.05) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* ── Post-it note ────────────────────────────────────────── */
+.postit {
+  background: linear-gradient(135deg, #fef9c3, #fef08a);
+  color: #713f12;
+  border-radius: 4px 16px 16px 16px;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.3);
+  position: relative;
+  transform: rotate(-1deg);
+  transition: transform 0.2s ease;
+}
+.postit:nth-child(even) { transform: rotate(0.8deg); background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #064e3b; }
+.postit:nth-child(3n) { transform: rotate(-0.5deg); background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #831843; }
+.postit:hover { transform: rotate(0) scale(1.02); z-index: 10; }
+.postit::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 14px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 0 0 4px 4px;
+}
+
+/* ── Floating action button ──────────────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  color: white;
+}
+.fab:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.55);
+}
+
+/* ── Modal overlay ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── File drop zone ──────────────────────────────────────── */
+.dropzone {
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dropzone:hover, .dropzone.active {
+  border-color: rgba(99,102,241,0.6);
+  background: rgba(99,102,241,0.06);
+}
+
+/* ── Subject gradient tags ───────────────────────────────── */
+.subject-math    { background: linear-gradient(135deg, #bae6fd22, #60a5fa22); border-color: #60a5fa44; }
+.subject-port    { background: linear-gradient(135deg, #fbcfe822, #f472b622); border-color: #f472b644; }
+.subject-geo     { background: linear-gradient(135deg, #bbf7d022, #34d39922); border-color: #34d39944; }
+.subject-hist    { background: linear-gradient(135deg, #fde68a22, #fbbf2422); border-color: #fbbf2444; }
